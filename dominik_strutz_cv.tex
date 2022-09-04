@@ -1,0 +1,432 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% A clean template for an academic CV
+%
+% Uses tabularx to create two column entries (date and job/edu/citation).
+% Defines commands to make adding entries simpler.
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\documentclass[10pt, a4paper]{article}
+
+% Full Unicode support for non-ASCII characters
+\usepackage[utf8]{inputenc}
+
+\usepackage{xspace} % to get the spacing after macros right
+
+% Useful aliases
+\newcommand{\UOE}{University of Edinburgh\xspace}
+\newcommand{\LMU}{Ludwig-Maximilians-Universität\xspace}
+\newcommand{\TUM}{Technische Universität München\xspace}
+\newcommand{\SoG}{School of Geosciences\xspace}
+
+% Identifying information
+\newcommand{\Title}{Curriculum Vit\ae}
+\newcommand{\FirstName}{Dominik}
+\newcommand{\LastName}{Strutz}
+\newcommand{\Initials}{D}
+\newcommand{\MyName}{\FirstName\ \LastName}
+\newcommand{\Me}{\textbf{\LastName, \Initials}}  % For citations
+\newcommand{\Email}{domink.strutz@ed.ac.uk}
+\newcommand{\PersonalWebsite}{dominik-strutz.github.io/}
+\newcommand{\LabWebsite}{blogs.ed.ac.uk/curtis/}
+% \newcommand{\ORCID}{0000-0001-6123-9515}
+% \newcommand{\Address}{
+%   Jane Herdman Building \\ 4 Brownlow Street \\ Liverpool, L69 3GP \\ United Kingdom
+% }
+
+% Names for citing coauthors
+\newcommand{\AC}{Curtis, A}
+
+% Template configuration
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Disable hyphenation
+\usepackage[none]{hyphenat}
+
+% Control the font size
+\usepackage{anyfontsize}
+
+% Icon fonts (requires using xelatex or luatex)
+\usepackage[fixed]{fontawesome5}
+\usepackage{academicons}
+
+% Template variables for styling
+\newcommand{\TablePad}{\vspace{-0.4cm}}
+\newcommand{\SoftwareTitle}[1]{{\bfseries #1}}
+\newcommand{\TableTitle}[1]{{\fontsize{12pt}{0}\selectfont \itshape #1}}
+
+% For fancy and multipage tables
+\usepackage{tabularx}
+\usepackage{ltablex}
+
+% Define a new environment to place all CV entries in a 2-column table.
+% Left column are the dates, right column the entries.
+\usepackage{environ}
+\NewEnviron{EntriesTable}{
+\TablePad
+\begin{tabularx}{\textwidth}{@{}p{0.10\textwidth}@{\hspace{0.02\textwidth}}p{0.88\textwidth}@{}}
+  \BODY
+\end{tabularx}
+}
+\NewEnviron{EntriesTableExtra}{
+\TablePad
+\begin{tabularx}{\textwidth}{@{}p{0.10\textwidth}@{\hspace{0.02\textwidth}}p{0.79\textwidth}@{\hspace{0.02\textwidth}}>{\raggedright\arraybackslash}p{0.07\textwidth}}
+  \BODY
+\end{tabularx}
+}
+
+% Macros to add links and mark publications
+\newcommand{\DOI}[1]{doi:\href{https://doi.org/#1}{#1}}
+\newcommand{\DOILink}[1]{\href{https://doi.org/#1}{doi.org/#1}}
+\newcommand{\Website}[1]{\href{https://#1}{#1}}
+\newcommand{\Preprint}[1]{\href{https://doi.org/#1}{\faFilePdf}}
+\newcommand{\Youtube}[1]{\href{https://www.youtube.com/watch?v=#1}{\faYoutube}}
+\newcommand{\GitHub}[1]{\href{https://github.com/#1}{\faGithub}}
+\newcommand{\Data}[1]{\href{https://doi.org/#1}{\faChartLine}}
+\newcommand{\Slides}[1]{\href{https://#1}{\faTv}}
+\newcommand{\SlidesDOI}[1]{\href{https://doi.org/#1}{\faTv}}
+\newcommand{\PosterDOI}[1]{\href{https://doi.org/#1}{\faImage}}
+\newcommand{\OA}{\thinspace\aiOpenAccess\enspace}
+
+% Macros to set the year and duration on the left column
+\newcommand{\Duration}[2]{\fontsize{9pt}{0}\selectfont #1 -- #2}
+\newcommand{\Year}[1]{\fontsize{9pt}{0}\selectfont #1}
+\newcommand{\Ongoing}{on}
+\newcommand{\Future}{future}
+\newcommand{\Appointment}[4]{\textbf{#1} \newline #2 \newline #3 \newline #4}
+
+% Define command to insert month name and year as date
+\usepackage{datetime}
+\newdateformat{monthyear}{\monthname[\THEMONTH], \THEYEAR}
+
+% Set the page margins
+\usepackage[a4paper,margin=1.5cm,includehead,headsep=5mm]{geometry}
+
+% To get the total page numbers (\pageref{LastPage})
+\usepackage{lastpage}
+
+% No indentation
+\setlength\parindent{0cm}
+
+% Increase the line spacing
+\renewcommand{\baselinestretch}{1.2}
+% and the spacing between rows in tables
+\renewcommand{\arraystretch}{1.5}
+
+% Remove space between items in itemize and enumerate
+\usepackage{enumitem}
+\setlist{nosep}
+
+% Use custom colors
+\usepackage[usenames,dvipsnames]{xcolor}
+
+% Set fonts (requires compilation with xelatex)
+\usepackage{fontspec}
+\setmainfont[%
+  Path = fonts/notoserif/,
+  UprightFont = NotoSerif-Regular,
+  BoldFont = NotoSerif-Bold,
+  ItalicFont = NotoSerif-Italic,
+  Extension = .ttf
+]{NotoSerif}
+
+
+
+% Set the spacing for sections
+\usepackage{titlesec}
+\titleformat{\section}
+  {\normalfont\Large\mdseries} % format
+  {} % label
+  {0pt} % separation (left separation for hang)
+  {} % text before title
+  [\titlerule] % text after title
+\titleformat{\subsection}
+  {\normalfont\large\mdseries} % format
+  {} % label
+  {0pt} % separation (left separation for hang)
+  {} % text before title
+
+% Disable number of sections. Use this instead of "section*" so that the sections still
+% appear as PDF bookmarks. Otherwise, would have to add the table of contents entries
+% manually.
+\makeatletter
+\renewcommand{\@seccntformat}[1]{}
+\makeatother
+
+% Set fancy headers
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{}
+\lhead{\fontsize{9pt}{10pt}\selectfont
+  \monthyear\today
+}
+\chead{
+  \fontsize{9pt}{10pt}\selectfont
+  \MyName
+  \hspace{0.2cm} -- \hspace{0.2cm}
+  \Title
+}
+% \rhead{\fontsize{9pt}{10pt}\selectfont \thepage{} of \pageref*{LastPage}}
+\rhead{\fontsize{9pt}{10pt}\selectfont \thepage{}}
+
+\renewcommand{\headrulewidth}{0pt}
+
+% Metadata for the PDF output and control of hyperlinks
+\usepackage[colorlinks=true]{hyperref}
+\hypersetup{
+  pdftitle={\MyName\ - \Title},
+  pdfauthor={\MyName},
+  linkcolor=blue,
+  citecolor=blue,
+  filecolor=black,
+  urlcolor=MidnightBlue
+}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\begin{document}
+
+% No header for the first page
+\thispagestyle{empty}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\begin{minipage}[t]{0.7\textwidth}
+{\fontsize{22pt}{0}\selectfont\MyName}
+\end{minipage}
+\begin{minipage}[t]{0.3\textwidth}
+  \begin{flushright}
+    Last updated: \monthyear\today
+  \end{flushright}
+\end{minipage}
+\\[-0.1cm]
+\rule{\textwidth}{2pt}
+\\[0.1cm]
+\begin{minipage}[t]{0.7\textwidth}
+    % ORCID: \href{https://orcid.org/\ORCID}{\ORCID}
+    % \\
+    Email: \href{mailto:\Email}{\Email}
+    \\
+    Research group: \Website{\LabWebsite}
+    \\
+    Website: \Website{\PersonalWebsite}
+\end{minipage}
+% \begin{minipage}[t]{0.3\textwidth}
+%   \begin{flushright}
+%     \Address
+%   \end{flushright}
+% \end{minipage}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Professional Appointments}
+
+% \begin{EntriesTable}
+%   \Duration{2019}{\Ongoing}  &
+%   \Appointment{Lecturer}{\LIVEARTH}{\LIVENV}{\LIV, UK}
+%   \\
+%   \Duration{2018}{\Ongoing}  &
+%   \Appointment{Affiliate Researcher}{\UHEARTH}{\SOEST}{\UHM, USA}
+% \end{EntriesTable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Education}
+
+\begin{EntriesTable}
+  \Duration{2021}{\Ongoing}  &
+  \textbf{PhD in Geophysics}, \UOE
+  \\
+  \Duration{2019}{2021}  &
+  \textbf{MSc in Geophysics}, \LMU and \TUM
+  \\
+  \Duration{2017}{2019}  &
+  \textbf{BSc in Earth Sciences}, \LMU and \TUM
+  \\
+  \Duration{2016}{2017}  &
+  \textbf{BSc in Physics}, \TUM
+\end{EntriesTable}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Grants \& Fellowships}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Open Science}
+
+\subsection{Open-source Software}
+
+\begin{EntriesTable}
+  \Duration{2019}{2020} &
+  \textbf{Obspy} | \Website{docs.obspy.org}
+  \newline
+  Project dedicated to provide a Python framework for processing seismological data.
+  \newline
+  Role: fixing bugs, contributing to tools for array analysis
+  \\
+\end{EntriesTable}
+
+% \subsection{FAIR Data}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Academic Service}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Awards \& Honors}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Teaching}
+
+% \subsection{Undergraduate}
+
+% \begin{EntriesTableExtra}
+%   \Duration{2020}{\Ongoing}  &
+%   ENVS398: Global Geophysics and Geodynamics
+%   \newline
+%   Teaching lithosphere dynamics (50\% of module)
+%   \newline
+%   Module coordinator from 2021
+%   \newline
+%   \textit{\LIV}
+%   & ~
+% \end{EntriesTableExtra}
+
+% \subsection{Workshops \& Short Courses}
+
+% \begin{EntriesTableExtra}
+% \Year{2022}  &
+%   Crafting beautiful maps with PyGMT.
+%   \textit{EGU 2022}
+%   &
+%   \GitHub{GenericMappingTools/egu22pygmt}
+%   \\
+%   ~ &
+%   A geophysical tour of mid-ocean ridges.
+%   \textit{Transform 2022} (online)
+%   &
+%   \GitHub{leouieda/transform2022}
+%   \Youtube{NzJmRlJCNbQ}
+%   \\
+% \Year{2021} &
+% \end{EntriesTableExtra}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Student supervision}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Media \& Outreach}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% \section{Publications}
+
+% \subsection{Peer-reviewed Papers}
+
+% \begin{EntriesTableExtra}
+% \Year{2021}  &
+%   \Santiago, \Me.
+%   Gradient-boosted equivalent sources.
+%   \emph{Geophysical Journal International}.
+%   \DOI{10.1093/gji/ggab297}.
+%   &
+%   \GitHub{compgeolab/eql-gradient-boosted}
+%   \Preprint{10.31223/X58G7C}
+%   \\
+% \end{EntriesTableExtra}
+
+
+% \subsection{Peer-reviewed Conference Proceedings}
+
+% \begin{EntriesTableExtra}
+% \Year{2014}  &
+%   \Figura, \Val, \Me, \Bi, \JB.
+%   A Single Euler Solution Per Anomaly,
+%   \emph{76th EAGE Conference and Exhibition 2014},
+%   \DOI{10.3997/2214-4609.20140891}.
+%   & ~
+%   \\
+% \end{EntriesTableExtra}
+
+% \subsection{Non-peer-reviewed Papers}
+
+% \begin{EntriesTableExtra}
+% \Year{2017}  &
+%   \Me.
+%   Step-by-step NMO correction,
+%   \emph{The Leading Edge},
+%   \DOI{10.1190/tle36020179.1}.
+%   &
+%   \OA
+%   \GitHub{pinga-lab/nmo-tutorial}
+%   \\
+% \end{EntriesTableExtra}
+
+% \subsection{Preprints}
+
+% \begin{EntriesTableExtra}
+% \Year{2019}  &
+%   \LBarba, \JBazan, \JBrown, \RGuimera, \MGymrek, \AHanna, \Lindsey, \KHuff, \DKatz,
+%   \CMadan, \KMoerman, \KNiemeyer, \JPoulson, \PPrins, \KRam, \ARokem, \Arfon,
+%   \GThiruvathukal, \KThyng, \Me, \BWilson, \Yehudi.
+%   Giving software its due through community-driven review and publication.
+%   \emph{OSF Preprints}.
+%   \DOI{10.31219/osf.io/f4vx6}
+%   &
+%   \OA
+% \end{EntriesTableExtra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Presentations}
+
+% \subsection{Invited \& Keynotes}
+
+\subsection{Other Presentations}
+
+\begin{EntriesTableExtra}
+\Year{2021}  &
+  \Me, \AC.
+  Bayesian Optimal Experimental Design
+  \emph{SPIN Workshop 2},
+  Carcans.
+  \Youtube{fViIGwYm2gs}
+  \\
+\end{EntriesTableExtra}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Miscellaneous}
+
+% \subsection{Professional society membership}
+
+\subsection{Languages}
+
+\TablePad
+\begin{tabularx}{\textwidth}{@{}p{0.15\textwidth} p{0.85\textwidth}@{}}
+  German & Native
+  \\
+  English & proficient
+  \\
+  Swedish & elementary
+\end{tabularx}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Glossary}
+
+These are the meanings of the symbols used throughout this document:
+\\
+\TablePad
+% \begin{tabularx}{\textwidth}{@{}p{0.03\textwidth} p{0.97\textwidth}@{}}
+%   \aiOpenAccess & Indicates that a publication is open-access
+%   \\
+%   \faGithub & Link to a code repository on GitHub
+%   \\
+%   \faFilePdf & Link to an open-access PDF, usually a preprint or postprint
+%   \\
+%   \faYoutube & Link to a video on YouTube
+%   \\
+%   \faChartLine & Link to a data archive
+%   \\
+%   \faTv & Link to presentation slides
+%   \\
+%   \faImage & Link to a poster
+% \end{tabularx}
+
+\end{document}
