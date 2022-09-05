@@ -5,7 +5,7 @@
 These are the Latex sources for my academic CV.
 
 **Download** the latest compiled PDF:
-[dominik_strutz_cv.pdf](https://github.com/dominik-strutz/cv/raw/gh-pages/dominik_strutz_cv.pdf)
+[dominik_strutz_cv.pdf](https://dominik-strutz.github.io/cv/dominik_strutz_cv.pdf)
 
 ## Template
 
