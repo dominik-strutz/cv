@@ -10,3 +10,5 @@ output/
 *.pdf
 
 .vscode/
+dominik_strutz_cv.fls
+dominik_strutz_cv.fdb_latexmk
